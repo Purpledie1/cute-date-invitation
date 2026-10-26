@@ -56,8 +56,20 @@ const CONFIG = {
   let soundEnabled = true;
   let audioCtx = null;
   let dodgeCount = 0;
+  let petCount = 0;
   let selectedDay = 'В эту пятницу вечером ✨';
   let isDodgeTransformed = false;
+  let isBgmPlaying = false;
+  let bgmTimer = null;
+  let bgmStep = 0;
+
+  // Romantic Lofi Chiptune Chords: Cmaj7 -> Am7 -> Fmaj7 -> G7
+  const bgmNotes = [
+    261.63, 329.63, 392.00, 493.88, // Cmaj7 (C4, E4, G4, B4)
+    220.00, 261.63, 329.63, 392.00, // Am7 (A3, C4, E4, G4)
+    174.61, 220.00, 261.63, 349.23, // Fmaj7 (F3, A3, C4, F4)
+    196.00, 246.94, 293.66, 349.23  // G7 (G3, B3, D4, F4)
+  ];
 
   // --- Web Audio Synthesizer (Zero External Dependencies) ---
   function initAudioContext() {
@@ -167,7 +179,6 @@ const CONFIG = {
       initAudioContext();
       if (!audioCtx) return;
 
-      // Soft dual oscillator purr
       for (let i = 0; i < 4; i++) {
         setTimeout(() => {
           playTone(85 + (i % 2) * 15, 0.18, 'triangle', 0.12);
@@ -176,25 +187,77 @@ const CONFIG = {
     } catch (e) {}
   }
 
-  // Sound Toggle Control
+  // Cookie Crunch / Sparkle Chime
+  function playCookieSound() {
+    if (!soundEnabled) return;
+    const notes = [659.25, 880, 1174.66, 1567.98];
+    notes.forEach((freq, idx) => {
+      setTimeout(() => {
+        playTone(freq, 0.3, 'sine', 0.15);
+      }, idx * 60);
+    });
+  }
+
+  // Cozy Background Lo-Fi Chiptune Music
+  function startBgm() {
+    if (!soundEnabled || isBgmPlaying) return;
+    try {
+      initAudioContext();
+      if (!audioCtx) return;
+      isBgmPlaying = true;
+      bgmTimer = setInterval(() => {
+        if (!soundEnabled) {
+          stopBgm();
+          return;
+        }
+        const freq = bgmNotes[bgmStep % bgmNotes.length];
+        playTone(freq, 0.35, 'triangle', 0.045);
+        bgmStep++;
+      }, 340);
+    } catch (e) {}
+  }
+
+  function stopBgm() {
+    isBgmPlaying = false;
+    if (bgmTimer) {
+      clearInterval(bgmTimer);
+      bgmTimer = null;
+    }
+  }
+
+  // Sound & Music Toggle Control
   if (soundToggle) {
     soundToggle.addEventListener('click', () => {
       soundEnabled = !soundEnabled;
       if (soundEnabled) {
         initAudioContext();
         soundToggle.classList.remove('muted');
-        soundIcon.textContent = '🔔';
-        soundText.textContent = 'Звуки: Вкл';
+        soundIcon.textContent = '🎵';
+        soundText.textContent = 'Музыка: Вкл';
         playPawSound();
-        showToast('Звуковые эффекты включены 🐾');
+        startBgm();
+        showToast('Романтичная музыка и звуки включены 🐾');
       } else {
+        stopBgm();
         soundToggle.classList.add('muted');
-        soundIcon.textContent = '🔕';
-        soundText.textContent = 'Звуки: Выкл';
-        showToast('Звуковые эффекты отключены');
+        soundIcon.textContent = '🔇';
+        soundText.textContent = 'Музыка: Выкл';
+        showToast('Звуки и музыка отключены');
       }
     });
   }
+
+  // Auto-start ambient music on first user touch / click
+  function onFirstUserGesture() {
+    if (soundEnabled && !isBgmPlaying) {
+      initAudioContext();
+      startBgm();
+    }
+    window.removeEventListener('click', onFirstUserGesture);
+    window.removeEventListener('touchstart', onFirstUserGesture);
+  }
+  window.addEventListener('click', onFirstUserGesture, { once: true });
+  window.addEventListener('touchstart', onFirstUserGesture, { once: true });
 
   // --- Modern Web Guidance: Smooth Card Transitions ---
   function canTransitionDisplay() {
@@ -252,11 +315,44 @@ const CONFIG = {
   }
 
   // Pet the Cat Interactive Event
+  const petCountEl = document.getElementById('petCount');
+  const unlockTag = document.getElementById('unlockTag');
+  const catPetCounter = document.getElementById('catPetCounter');
+
   if (pixelCatBox) {
     pixelCatBox.addEventListener('click', () => {
       initAudioContext();
       playPurrSound();
-      setCatState('excited', 'Муррр-мяу! Спасибо, что гладишь меня! 😻💖');
+      petCount++;
+
+      if (petCountEl) petCountEl.textContent = petCount;
+      if (catPetCounter) {
+        catPetCounter.classList.add('bump');
+        setTimeout(() => catPetCounter.classList.remove('bump'), 200);
+      }
+
+      // Unlock accessories
+      if (petCount >= 5 && petCount < 10) {
+        pixelCatBox.classList.add('has-crown');
+        if (unlockTag) unlockTag.textContent = '👑 Королевский котик!';
+      } else if (petCount >= 10) {
+        pixelCatBox.classList.add('has-glasses');
+        if (unlockTag) unlockTag.textContent = '😎 Крутой котик!';
+      }
+
+      const petPhrases = [
+        'Муррр! Так тепло и приятно... 😻💖',
+        'Ты самая ласковая и замечательная! 🥰',
+        'Мяу! Продолжай, котику очень нравится 🐾',
+        'Кошачье сердечко бьется чаще рядом с тобой! 💕',
+        'Вау, да у тебя талант гладить котиков! ✨'
+      ];
+
+      let phrase = petPhrases[Math.floor(Math.random() * petPhrases.length)];
+      if (petCount === 5) phrase = 'ВАУ! Королевский котик активирован! 👑✨';
+      if (petCount === 10) phrase = 'Теперь я самый стильный котик на районе! Пойдём на свидание? 😎🐾';
+
+      setCatState('excited', phrase);
       triggerHeartBurst(pixelCatBox);
 
       setTimeout(() => {
@@ -333,10 +429,9 @@ const CONFIG = {
   // --- The Playful Dodge Button ("Я ещё подумаю... 🙈") ---
   const dodgePhrases = [
     'Ой, лапка соскользнула! 😸',
-    'Котик не принимает отказов! 🥺',
-    'Хи-хи, не поймаешь! 🐾',
-    'Ну пожалуйста-пожалуйста! 💖',
-    'От судьбы не убежишь! ✨',
+    'Ошибка 404: Вариант "Нет" не найден 🚫',
+    'Кнопка сломалась от твоей красоты! ✨',
+    'Не сопротивляйся кошачьей магии! 🪄',
     'Ладно-ладно, согласна! 🥰'
   ];
 
@@ -347,6 +442,22 @@ const CONFIG = {
     dodgeCount++;
 
     setCatState('pleading', 'Ты правда хочешь подумать? Котик грустит... 🥺🐾');
+
+    // Make YES button grow bigger and more irresistible with every attempt!
+    if (btnYes1) {
+      btnYes1.classList.remove('grow-1', 'grow-2', 'grow-3');
+      const yesText = btnYes1.querySelector('.btn-text');
+      if (dodgeCount === 1) {
+        btnYes1.classList.add('grow-1');
+        if (yesText) yesText.textContent = 'ТОЧНО ДА! 💖';
+      } else if (dodgeCount === 2) {
+        btnYes1.classList.add('grow-2');
+        if (yesText) yesText.textContent = 'ПОЖАЛУЙСТА ДАА! 😻';
+      } else if (dodgeCount >= 3) {
+        btnYes1.classList.add('grow-3');
+        if (yesText) yesText.textContent = 'БЕЗАЛЬТЕРНАТИВНО ДА! 🚀';
+      }
+    }
 
     if (dodgeCount >= 4) {
       // Transform into a YES button!
@@ -672,6 +783,62 @@ const CONFIG = {
   }
 
   initAmbientParticles();
+
+  // --- Love Fortune Cookie Logic ---
+  const cookieBox = document.getElementById('cookieBox');
+  const cookieIcon = document.getElementById('cookieIcon');
+  const fortuneText = document.getElementById('fortuneText');
+
+  const fortunes = [
+    'Звёзды говорят: кофе в компании с тобой на 300% вкуснее обычного! ☕✨',
+    'Сегодня идеальный день, чтобы сказать "ДА" и широко улыбнуться! 🌸',
+    'Уровень твоего очарования сегодня превышает все допустимые нормы! 💕',
+    'Тебе положена безлимитная порция самых крепких объятий и десерт! 🧁',
+    'Котик предсказывает: этот вечер станет одним из самых тёплых воспоминаний года! 🐾',
+    'Внимание: рядом с тобой у одного человека сильно учащается сердцебиение! 💖',
+    'Судьба намекает, что отказаться от такого свидания физически невозможно! 😸',
+    'Ты делаешь этот мир красивее просто тем, что улыбаешься! ✨'
+  ];
+
+  if (cookieBox) {
+    cookieBox.addEventListener('click', () => {
+      initAudioContext();
+      playCookieSound();
+      cookieBox.classList.add('cracked');
+      if (cookieIcon) cookieIcon.textContent = '✨';
+
+      const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+      if (fortuneText) fortuneText.textContent = randomFortune;
+      triggerHeartBurst(cookieBox);
+      setCatState('excited', 'Какое чудесное предсказание! Оно 100% сбудется! 😻🥠');
+
+      setTimeout(() => {
+        cookieBox.classList.remove('cracked');
+        if (cookieIcon) cookieIcon.textContent = '🥠';
+      }, 1500);
+    });
+  }
+
+  // --- Cursor Sparkle / Paw Trail ---
+  let lastSparkleTime = 0;
+  function createCursorSparkle(x, y) {
+    const emojis = ['✨', '💖', '🐾', '⭐', '🌸'];
+    const span = document.createElement('span');
+    span.className = 'cursor-sparkle';
+    span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    span.style.left = x + 'px';
+    span.style.top = y + 'px';
+    document.body.appendChild(span);
+    setTimeout(() => span.remove(), 750);
+  }
+
+  window.addEventListener('pointermove', (e) => {
+    const now = Date.now();
+    if (now - lastSparkleTime > 65) {
+      lastSparkleTime = now;
+      createCursorSparkle(e.clientX, e.clientY);
+    }
+  }, { passive: true });
 
   // Resize handler for canvas
   window.addEventListener('resize', () => {
