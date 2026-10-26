@@ -1,0 +1,1131 @@
+/* ==========================================================================
+   ROMANTIC DATE INVITATION WITH PIXEL CAT & PAW SELECTION COMPONENT
+   ========================================================================== */
+
+/* ------------------ Root Variables & Theme ------------------ */
+:root {
+  --primary: #ff5b89;
+  --primary-hover: #ff3b71;
+  --primary-light: #ffe8ef;
+  --primary-glow: rgba(255, 91, 137, 0.35);
+  
+  --paw-color: rgb(255, 91, 137);
+  --heart-color: rgb(255, 91, 137); /* Backwards compatibility */
+  --paw-size: 52px;
+
+  --bg-gradient: radial-gradient(circle at 10% 20%, #fff1f5 0%, #fdf2f8 35%, #f5f3ff 100%);
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-border: rgba(255, 182, 206, 0.45);
+  --card-shadow: 0 20px 45px -10px rgba(255, 107, 149, 0.15), 0 0 20px 0 rgba(230, 210, 245, 0.3);
+
+  --text-main: #33272a;
+  --text-muted: #6e5860;
+  --gold-accent: #f59e0b;
+  --gold-bg: #fffbeb;
+
+  --font-heading: 'Comfortaa', cursive, system-ui, sans-serif;
+  --font-body: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --radius-xl: 32px;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+}
+
+/* ------------------ Reset & Base ------------------ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ------------------ Ambient Floating Particles ------------------ */
+.ambient-background {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ambient-particle {
+  position: absolute;
+  user-select: none;
+  font-size: 1.4rem;
+  opacity: 0.35;
+  will-change: transform, opacity;
+  animation: floatUpwards linear infinite;
+}
+
+@keyframes floatUpwards {
+  0% {
+    transform: translateY(105vh) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.45;
+  }
+  85% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(-10vh) rotate(360deg) scale(1.1);
+    opacity: 0;
+  }
+}
+
+/* ------------------ Sound Toggle Button ------------------ */
+.sound-toggle-btn {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid var(--card-border);
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 107, 149, 0.12);
+  transition: all 0.25s ease;
+}
+
+.sound-toggle-btn:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  color: var(--primary);
+  box-shadow: 0 6px 18px rgba(255, 107, 149, 0.2);
+}
+
+.sound-toggle-btn.muted {
+  opacity: 0.7;
+}
+
+/* ------------------ Main Layout & Cards ------------------ */
+.page-container {
+  width: 100%;
+  max-width: 680px;
+  position: relative;
+  z-index: 10;
+  margin: auto;
+}
+
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 2px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--card-shadow);
+  padding: 2.25rem 2rem;
+  position: relative;
+  text-align: center;
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out, display 0.4s allow-discrete;
+}
+
+/* Modern Web Guidance: @starting-style for smooth entry animations */
+@starting-style {
+  .card:not([hidden]) {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+}
+
+.card[hidden],
+.card[data-closing] {
+  display: none;
+  opacity: 0;
+  transform: translateY(-20px) scale(0.97);
+}
+
+.card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid rgba(255, 91, 137, 0.2);
+  padding: 0.35rem 1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 2px 8px rgba(255, 91, 137, 0.1);
+}
+
+.card-badge.success {
+  background: #ecfdf5;
+  color: #059669;
+  border-color: rgba(5, 150, 105, 0.2);
+}
+
+/* ------------------ Cat Stage & Speech Bubble ------------------ */
+.cat-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.speech-bubble {
+  background: #ffffff;
+  border: 2px solid #ffd6e0;
+  border-radius: var(--radius-md);
+  padding: 0.65rem 1.15rem;
+  margin-bottom: 0.85rem;
+  position: relative;
+  max-width: 320px;
+  box-shadow: 0 6px 18px rgba(255, 91, 137, 0.1);
+  animation: speechPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.speech-text {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.bubble-arrow {
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid #ffd6e0;
+}
+
+.bubble-arrow::after {
+  content: '';
+  position: absolute;
+  top: -11px;
+  left: -7px;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid #ffffff;
+}
+
+@keyframes speechPop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Pixel Cat Box */
+.pixel-cat-box {
+  width: 140px;
+  height: 140px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  user-select: none;
+}
+
+.pixel-cat-box:hover {
+  transform: scale(1.05);
+}
+
+.pixel-cat-box:active {
+  transform: scale(0.95);
+}
+
+.pixel-cat-svg {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  overflow: visible;
+  filter: drop-shadow(0 8px 16px rgba(61, 41, 36, 0.12));
+}
+
+.cat-hint {
+  font-size: 0.75rem;
+  color: #9c8a90;
+  margin-top: 0.35rem;
+  font-weight: 600;
+}
+
+/* ------------------ Pixel Cat Animations & Keyframes ------------------ */
+/* Gentle Breathing */
+.cat-body-head {
+  transform-origin: 16px 28px;
+  animation: catBreathe 2.8s ease-in-out infinite;
+}
+
+@keyframes catBreathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(1.2px); }
+}
+
+/* Tail Swishing */
+.cat-tail {
+  transform-origin: 23px 21px;
+  animation: tailSwish 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes tailSwish {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-14deg); }
+}
+
+/* Natural Eye Blinking */
+.cat-eyes-idle {
+  transform-origin: 16px 13px;
+  animation: eyeBlink 4.2s infinite;
+}
+
+@keyframes eyeBlink {
+  0%, 94%, 98%, 100% { transform: scaleY(1); }
+  96% { transform: scaleY(0.1); }
+}
+
+/* Cheeks Blush Glowing */
+.cat-blush {
+  animation: blushGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes blushGlow {
+  0% { opacity: 0.55; }
+  100% { opacity: 1; }
+}
+
+/* Floating Heart above Cat */
+.cat-floating-heart {
+  transform-origin: 16px 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Hide Alternate Eye Layers by Default */
+.cat-eyes-happy,
+.cat-eyes-pleading {
+  display: none;
+}
+
+/* --- STATE: EXCITED (Hovering Yes or Happy) --- */
+.pixel-cat-box.excited .cat-eyes-idle {
+  display: none;
+}
+.pixel-cat-box.excited .cat-eyes-happy {
+  display: block;
+}
+.pixel-cat-box.excited .cat-floating-heart {
+  opacity: 1;
+  animation: heartFloatBeat 1.2s ease-in-out infinite;
+}
+.pixel-cat-box.excited .cat-tail {
+  animation-duration: 0.9s;
+}
+
+/* --- STATE: PLEADING (Hovering "I'll think about it") --- */
+.pixel-cat-box.pleading .cat-eyes-idle {
+  display: none;
+}
+.pixel-cat-box.pleading .cat-eyes-pleading {
+  display: block;
+}
+.pixel-cat-box.pleading .cat-body-head {
+  transform: translateY(2px) scale(0.98);
+}
+.pixel-cat-box.pleading .cat-tail {
+  animation-duration: 4s;
+  transform: rotate(-3deg);
+}
+
+/* --- STATE: CELEBRATION (Accepted Date!) --- */
+.pixel-cat-box.celebrate .cat-eyes-idle {
+  display: none;
+}
+.pixel-cat-box.celebrate .cat-eyes-happy {
+  display: block;
+}
+.pixel-cat-box.celebrate .cat-floating-heart {
+  opacity: 1;
+  animation: heartFloatBeat 0.8s ease-in-out infinite;
+}
+.pixel-cat-box.celebrate .cat-body-head {
+  animation: catHappyBounce 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate;
+}
+.pixel-cat-box.celebrate .cat-tail {
+  animation-duration: 0.6s;
+}
+
+@keyframes heartFloatBeat {
+  0% { transform: translateY(0) scale(0.9); }
+  50% { transform: translateY(-4px) scale(1.25); }
+  100% { transform: translateY(0) scale(0.9); }
+}
+
+@keyframes catHappyBounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px) scale(1.04); }
+}
+
+/* ------------------ Typography & Headings ------------------ */
+.main-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 5vw, 2.15rem);
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.65rem;
+  letter-spacing: -0.02em;
+}
+
+.main-subtitle {
+  font-size: clamp(0.95rem, 3vw, 1.1rem);
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0 auto 1.85rem;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 4.5vw, 1.75rem);
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.6rem;
+}
+
+/* ------------------ Decision Area & Buttons ------------------ */
+.decision-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 0.5rem;
+  position: relative;
+  min-height: 70px;
+}
+
+.btn {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 800;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  padding: 0.85rem 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  user-select: none;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* Main YES Button */
+.btn-yes {
+  background: linear-gradient(135deg, #ff5b89 0%, #ff3366 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 24px var(--primary-glow);
+  transform-origin: center;
+  animation: pulseGlow 2.4s infinite;
+}
+
+.btn-yes:hover {
+  transform: scale(1.06) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(255, 51, 102, 0.45);
+}
+
+.btn-yes:active {
+  transform: scale(0.97);
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 8px 24px var(--primary-glow); }
+  50% { box-shadow: 0 12px 32px rgba(255, 91, 137, 0.55); }
+}
+
+/* Secondary YES Button */
+.btn-yes-sub {
+  background: #ffffff;
+  color: var(--primary);
+  border: 2px solid #ffccd9;
+  box-shadow: 0 4px 14px rgba(255, 91, 137, 0.1);
+}
+
+.btn-yes-sub:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 91, 137, 0.2);
+}
+
+/* Playful Dodge Button */
+.dodge-wrapper {
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+
+.btn-dodge {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1.5px solid #cbd5e1;
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.btn-dodge:hover {
+  background: #e2e8f0;
+}
+
+/* ------------------ Activities Grid & Cards ------------------ */
+.activities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.activity-card {
+  background: #ffffff;
+  border: 2px solid #ffe3ec;
+  border-radius: var(--radius-lg);
+  padding: 1.15rem 1rem 1.15rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  user-select: none;
+}
+
+.activity-card:hover {
+  border-color: #ff9ebb;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 91, 137, 0.12);
+}
+
+.activity-card:has(.activity-checkbox:checked) {
+  border-color: var(--primary);
+  background: #fff8fa;
+  box-shadow: 0 8px 24px rgba(255, 91, 137, 0.16);
+}
+
+.activity-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  flex: 1;
+}
+
+.activity-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.activity-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.2rem;
+}
+
+.activity-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* ==========================================================================
+   USER'S CAT PAW COMPONENT (FULLY RESPONSIVE & ENHANCED)
+   Adapted directly from user prompt replacing heart with cat paw
+   ========================================================================== */
+.paw-container,
+.heart-container {
+  --paw-color: rgb(255, 91, 137);
+  --heart-color: rgb(255, 91, 137);
+  position: relative;
+  width: var(--paw-size);
+  height: var(--paw-size);
+  min-width: var(--paw-size);
+  min-height: var(--paw-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.paw-container:hover,
+.heart-container:hover {
+  transform: scale(1.12);
+}
+
+.paw-container .checkbox,
+.heart-container .checkbox {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 20;
+  cursor: pointer;
+  margin: 0;
+}
+
+.paw-container .svg-container,
+.heart-container .svg-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.paw-container .svg-outline,
+.paw-container .svg-filled,
+.heart-container .svg-outline,
+.heart-container .svg-filled {
+  fill: var(--paw-color);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* Outline: Crisp stroke styling for the empty cat paw */
+.paw-container .svg-outline,
+.heart-container .svg-outline {
+  fill: rgba(255, 91, 137, 0.08);
+  stroke: var(--paw-color);
+  stroke-width: 1.7px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Filled: Rich pop-in paw animation when checked */
+.paw-container .svg-filled,
+.heart-container .svg-filled {
+  stroke: var(--paw-color);
+  stroke-width: 0.6px;
+  animation: keyframes-svg-filled 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: none;
+}
+
+/* Celebration Sparkles Burst */
+.paw-container .svg-celebrate,
+.heart-container .svg-celebrate {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  animation: keyframes-svg-celebrate 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation-fill-mode: forwards;
+  display: none;
+  stroke: var(--paw-color);
+  fill: var(--paw-color);
+  stroke-width: 2px;
+  pointer-events: none;
+}
+
+/* Checkbox Toggle Selectors */
+.paw-container .checkbox:checked ~ .svg-container .svg-filled,
+.heart-container .checkbox:checked ~ .svg-container .svg-filled {
+  display: block;
+}
+
+.paw-container .checkbox:checked ~ .svg-container .svg-outline,
+.heart-container .checkbox:checked ~ .svg-container .svg-outline {
+  opacity: 0;
+}
+
+.paw-container .checkbox:checked ~ .svg-container .svg-celebrate,
+.heart-container .checkbox:checked ~ .svg-container .svg-celebrate {
+  display: block;
+}
+
+/* Keyboard accessibility */
+.paw-container .checkbox:focus-visible ~ .svg-container,
+.heart-container .checkbox:focus-visible ~ .svg-container {
+  outline: 2.5px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: 50%;
+}
+
+/* Keyframes from user snippet with bounce easing */
+@keyframes keyframes-svg-filled {
+  0% {
+    transform: scale(0);
+  }
+  35% {
+    transform: scale(1.25);
+  }
+  65% {
+    transform: scale(0.95);
+    filter: brightness(1.3);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+@keyframes keyframes-svg-celebrate {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+    filter: brightness(1.4);
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+    display: none;
+  }
+}
+
+/* ------------------ Planner Options (Day & Custom Wish) ------------------ */
+.planner-options {
+  background: rgba(255, 240, 245, 0.5);
+  border: 1.5px dashed #ffccd9;
+  border-radius: var(--radius-lg);
+  padding: 1.4rem;
+  margin-bottom: 1.85rem;
+  text-align: left;
+}
+
+.option-group {
+  margin-bottom: 1.2rem;
+}
+
+.option-group:last-child {
+  margin-bottom: 0;
+}
+
+.group-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.6rem;
+}
+
+.pill-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pill-btn {
+  background: #ffffff;
+  border: 1.5px solid #ffccd9;
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pill-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.pill-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+.custom-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid #ffccd9;
+  background: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+
+.custom-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 91, 137, 0.15);
+}
+
+.btn-confirm {
+  background: linear-gradient(135deg, #ff5b89 0%, #ff3366 100%);
+  color: #ffffff;
+  font-size: 1.15rem;
+  padding: 1rem 2.2rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 25px var(--primary-glow);
+}
+
+.btn-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(255, 51, 102, 0.4);
+}
+
+/* ------------------ Stage 3: VIP Golden Ticket ------------------ */
+.ticket-card {
+  background: linear-gradient(145deg, #ffffff 0%, #fffbf2 100%);
+  border: 2px solid #ffd166;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(245, 158, 11, 0.2), 0 0 20px rgba(255, 91, 137, 0.15);
+}
+
+.ticket-header {
+  background: linear-gradient(135deg, #ffd166 0%, #f59e0b 100%);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #78350f;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.ticket-content {
+  padding: 2.25rem 2rem;
+  position: relative;
+  text-align: center;
+}
+
+.ticket-stamp {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  border: 2.5px dashed #059669;
+  color: #059669;
+  padding: 0.35rem 0.85rem;
+  border-radius: 8px;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  transform: rotate(12deg);
+  opacity: 0.85;
+}
+
+.ticket-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 4.5vw, 1.85rem);
+  font-weight: 700;
+  color: #78350f;
+  margin-bottom: 0.35rem;
+}
+
+.ticket-subtitle {
+  font-size: 0.95rem;
+  color: #92400e;
+  margin-bottom: 1.5rem;
+}
+
+/* Perforated Divider */
+.ticket-divider {
+  position: relative;
+  margin: 1.5rem -2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ticket-divider .notch {
+  width: 24px;
+  height: 24px;
+  background: var(--bg-gradient);
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-divider .notch.left {
+  margin-left: -12px;
+}
+
+.ticket-divider .notch.right {
+  margin-right: -12px;
+}
+
+.ticket-divider .dashed-line {
+  flex: 1;
+  border-bottom: 2px dashed #fcd34d;
+}
+
+.ticket-details {
+  text-align: left;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid #fed7aa;
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-row {
+  margin-bottom: 0.85rem;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #92400e;
+  margin-bottom: 0.25rem;
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.activities-summary {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.activities-summary li {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+  padding: 0.2rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ticket-footer-note {
+  font-size: 0.85rem;
+  color: #b45309;
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* Ticket Actions */
+.ticket-actions {
+  padding: 1.5rem 2rem 2rem;
+  background: #fffdf7;
+  border-top: 1px solid #fee2e2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn-telegram {
+  background: #229ed9;
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(34, 158, 217, 0.25);
+}
+
+.btn-telegram:hover {
+  background: #1e8dc2;
+  transform: translateY(-2px);
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+}
+
+.btn-whatsapp:hover {
+  background: #20ba5a;
+  transform: translateY(-2px);
+}
+
+.btn-copy {
+  background: #ffffff;
+  color: var(--text-main);
+  border: 1.5px solid #e2e8f0;
+}
+
+.btn-copy:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.btn-reset {
+  background: transparent;
+  color: #64748b;
+  font-size: 0.85rem;
+  padding: 0.4rem;
+}
+
+.btn-reset:hover {
+  color: var(--primary);
+}
+
+/* ------------------ Confetti Canvas & Toast ------------------ */
+.confetti-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.toast-notification {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #1e293b;
+  color: #ffffff;
+  padding: 0.75rem 1.4rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+}
+
+.toast-notification.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ------------------ Responsiveness & Ergonomics ------------------ */
+@media (max-width: 600px) {
+  :root {
+    --paw-size: 46px;
+  }
+
+  body {
+    padding: 1rem 0.75rem;
+  }
+
+  .card {
+    padding: 1.75rem 1.25rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .activities-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-card {
+    padding: 1rem;
+  }
+
+  .ticket-content {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .ticket-actions {
+    padding: 1.25rem;
+  }
+
+  .decision-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .dodge-wrapper {
+    width: 100%;
+  }
+
+  .sound-toggle-btn {
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* ------------------ Reduced Motion Support ------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .ambient-particle {
+    display: none;
+  }
+
+  .card {
+    transition: opacity 0.1s ease;
+  }
+}

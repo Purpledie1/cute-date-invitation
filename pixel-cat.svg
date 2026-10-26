@@ -1,0 +1,148 @@
+
+<svg class="pixel-cat-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+  <defs>
+    <!-- Filter for pixel sharpness if needed -->
+  </defs>
+
+  <!-- FLOATING LOVE HEART (active on excited / celebrate) -->
+  <g class="cat-floating-heart">
+    <rect x="14" y="1" width="4" height="1" fill="#FF4D6D" />
+    <rect x="12" y="2" width="8" height="1" fill="#FF4D6D" />
+    <rect x="11" y="3" width="10" height="2" fill="#FF4D6D" />
+    <rect x="12" y="5" width="8" height="1" fill="#FF4D6D" />
+    <rect x="13" y="6" width="6" height="1" fill="#FF4D6D" />
+    <rect x="14" y="7" width="4" height="1" fill="#FF4D6D" />
+    <rect x="15" y="8" width="2" height="1" fill="#FF4D6D" />
+    <!-- White sparkle glint on heart -->
+    <rect x="13" y="3" width="2" height="1" fill="#FFFFFF" />
+  </g>
+
+  <!-- TAIL (Swishing back and forth) -->
+  <g class="cat-tail">
+    <rect x="23" y="19" width="3" height="2" fill="#FFA552" stroke="#3D2924" stroke-width="0.5" />
+    <rect x="25" y="17" width="3" height="3" fill="#FFA552" stroke="#3D2924" stroke-width="0.5" />
+    <rect x="26" y="14" width="3" height="4" fill="#FFA552" stroke="#3D2924" stroke-width="0.5" />
+    <rect x="25" y="12" width="3" height="3" fill="#FFF2E2" stroke="#3D2924" stroke-width="0.5" />
+    <rect x="24" y="11" width="3" height="2" fill="#FFF2E2" stroke="#3D2924" stroke-width="0.5" />
+  </g>
+
+  <!-- MAIN BODY & HEAD GROUP (Bobbing gently / jumping) -->
+  <g class="cat-body-head">
+    <!-- BODY -->
+    <!-- Body base silhouette and cream fur -->
+    <rect x="7" y="20" width="18" height="9" fill="#FFF7ED" />
+    <rect x="8" y="19" width="16" height="2" fill="#FFF7ED" />
+    <!-- Body outline strokes -->
+    <rect x="6" y="21" width="1" height="8" fill="#3D2924" />
+    <rect x="25" y="21" width="1" height="8" fill="#3D2924" />
+    <rect x="7" y="29" width="18" height="1" fill="#3D2924" />
+    <!-- Calico Ginger patch on side -->
+    <rect x="19" y="20" width="6" height="8" fill="#FFA552" />
+    <rect x="18" y="22" width="3" height="5" fill="#FFA552" />
+    <!-- Fur shading under head -->
+    <rect x="8" y="19" width="16" height="1" fill="#E6D3C1" />
+
+    <!-- BOW TIE / COLLAR -->
+    <g class="cat-collar">
+      <rect x="10" y="19" width="12" height="2" fill="#FF4D6D" />
+      <rect x="9" y="19" width="1" height="2" fill="#3D2924" />
+      <rect x="22" y="19" width="1" height="2" fill="#3D2924" />
+      <!-- Golden bell / heart pendant -->
+      <rect x="15" y="20" width="2" height="2" fill="#FFD166" />
+      <rect x="15" y="21" width="2" height="1" fill="#FFAA00" />
+    </g>
+
+    <!-- HEAD -->
+    <!-- Head Base Outline -->
+    <rect x="6" y="9" width="20" height="10" fill="#3D2924" />
+    <rect x="5" y="10" width="22" height="8" fill="#3D2924" />
+    <!-- Head Interior: Cream Fur -->
+    <rect x="7" y="10" width="18" height="8" fill="#FFFDF8" />
+    <rect x="6" y="11" width="20" height="6" fill="#FFFDF8" />
+
+    <!-- GINGER / CALICO PATCH ON LEFT EAR & HEAD -->
+    <rect x="5" y="9" width="6" height="6" fill="#FFA552" />
+    <rect x="6" y="6" width="4" height="4" fill="#FFA552" />
+    <rect x="7" y="15" width="2" height="2" fill="#FFA552" />
+
+    <!-- EARS -->
+    <!-- Left Ear -->
+    <rect x="5" y="5" width="5" height="5" fill="#3D2924" />
+    <rect x="6" y="4" width="3" height="2" fill="#3D2924" />
+    <rect x="7" y="3" width="2" height="1" fill="#3D2924" />
+    <rect x="7" y="6" width="3" height="3" fill="#FF94A8" /> <!-- Pink inner ear -->
+    
+    <!-- Right Ear -->
+    <rect x="22" y="5" width="5" height="5" fill="#3D2924" />
+    <rect x="23" y="4" width="3" height="2" fill="#3D2924" />
+    <rect x="23" y="3" width="2" height="1" fill="#3D2924" />
+    <rect x="22" y="6" width="3" height="3" fill="#FF94A8" /> <!-- Pink inner ear -->
+    <rect x="21" y="6" width="2" height="4" fill="#FFFDF8" />
+
+    <!-- WHISKERS -->
+    <!-- Left whiskers -->
+    <rect x="1" y="13" width="4" height="1" fill="#3D2924" />
+    <rect x="2" y="15" width="3" height="1" fill="#3D2924" />
+    <!-- Right whiskers -->
+    <rect x="27" y="13" width="4" height="1" fill="#3D2924" />
+    <rect x="27" y="15" width="3" height="1" fill="#3D2924" />
+
+    <!-- NOSE & CUTE MOUTH -->
+    <rect x="15" y="14" width="2" height="1" fill="#FF758F" /> <!-- Pink nose -->
+    <rect x="14" y="15" width="1" height="1" fill="#3D2924" /> <!-- Mouth :3 -->
+    <rect x="17" y="15" width="1" height="1" fill="#3D2924" />
+    <rect x="15" y="16" width="2" height="1" fill="#3D2924" />
+
+    <!-- BLUSH CHEEKS (Animated glowing) -->
+    <g class="cat-blush">
+      <rect x="6" y="14" width="3" height="2" fill="#FFA3B8" />
+      <rect x="23" y="14" width="3" height="2" fill="#FFA3B8" />
+    </g>
+
+    <!-- EYE STATE 1: IDLE / NORMAL EYES (with blinking animation) -->
+    <g class="cat-eyes cat-eyes-idle">
+      <!-- Left Eye -->
+      <rect x="9" y="12" width="3" height="3" fill="#2B1E1A" />
+      <rect x="9" y="12" width="1" height="1" fill="#FFFFFF" /> <!-- Sparkle -->
+      <!-- Right Eye -->
+      <rect x="20" y="12" width="3" height="3" fill="#2B1E1A" />
+      <rect x="20" y="12" width="1" height="1" fill="#FFFFFF" /> <!-- Sparkle -->
+    </g>
+
+    <!-- EYE STATE 2: HAPPY / SMILING EYES (^ ^) -->
+    <g class="cat-eyes cat-eyes-happy">
+      <!-- Left Eye ^ -->
+      <rect x="8" y="13" width="1" height="2" fill="#2B1E1A" />
+      <rect x="9" y="12" width="2" height="1" fill="#2B1E1A" />
+      <rect x="11" y="13" width="1" height="2" fill="#2B1E1A" />
+      <!-- Right Eye ^ -->
+      <rect x="19" y="13" width="1" height="2" fill="#2B1E1A" />
+      <rect x="20" y="12" width="2" height="1" fill="#2B1E1A" />
+      <rect x="22" y="13" width="1" height="2" fill="#2B1E1A" />
+    </g>
+
+    <!-- EYE STATE 3: PLEADING / SHINY PUPPY EYES (when cursor nears 'No') -->
+    <g class="cat-eyes cat-eyes-pleading">
+      <!-- Left big shiny eye -->
+      <rect x="8" y="11" width="4" height="4" fill="#2B1E1A" />
+      <rect x="8" y="11" width="2" height="2" fill="#FFFFFF" />
+      <rect x="11" y="13" width="1" height="1" fill="#70D6FF" /> <!-- Anime tear glint -->
+      <!-- Right big shiny eye -->
+      <rect x="19" y="11" width="4" height="4" fill="#2B1E1A" />
+      <rect x="19" y="11" width="2" height="2" fill="#FFFFFF" />
+      <rect x="22" y="13" width="1" height="1" fill="#70D6FF" />
+    </g>
+
+    <!-- FRONT PAWS -->
+    <g class="cat-paws">
+      <!-- Left Paw -->
+      <rect x="9" y="24" width="4" height="4" fill="#3D2924" />
+      <rect x="10" y="25" width="2" height="3" fill="#FFFDF8" />
+      <rect x="10" y="26" width="2" height="2" fill="#FFB5C5" /> <!-- Toe bean -->
+      <!-- Right Paw -->
+      <rect x="18" y="24" width="4" height="4" fill="#3D2924" />
+      <rect x="19" y="25" width="2" height="3" fill="#FFFDF8" />
+      <rect x="19" y="26" width="2" height="2" fill="#FFB5C5" /> <!-- Toe bean -->
+    </g>
+  </g>
+</svg>

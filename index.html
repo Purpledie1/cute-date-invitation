@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>У меня к тебе секретный вопрос... 🐾</title>
+  <meta name="description" content="Особенное интерактивное приглашение на свидание с милым пиксельным котиком и лапками!">
+  
+  <!-- Google Fonts: Comfortaa & Nunito for ultra-cute rounded typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient floating particles background (Paw prints, hearts, sparkles) -->
+  <div class="ambient-background" id="ambientBg" aria-hidden="true"></div>
+
+  <!-- Audio Control Button -->
+  <button class="sound-toggle-btn" id="soundToggle" title="Включить / выключить звуки" aria-label="Переключить звук">
+    <span class="sound-icon" id="soundIcon">🔔</span>
+    <span class="sound-text" id="soundText">Звуки: Вкл</span>
+  </button>
+
+  <!-- Main Container -->
+  <main class="page-container">
+    
+    <!-- ================= STAGE 1: INVITATION / QUESTION ================= -->
+    <section class="card invitation-card" id="stage1">
+      <div class="card-badge">
+        <span class="badge-sparkle">✨</span>
+        <span class="badge-text">Секретное послание</span>
+        <span class="badge-sparkle">✨</span>
+      </div>
+
+      <!-- Animated Pixel Cat Widget -->
+      <div class="cat-stage">
+        <!-- Interactive Cat Speech Bubble -->
+        <div class="speech-bubble" id="catSpeech">
+          <p class="speech-text" id="speechText">Мяу! У меня к тебе один очень важный вопрос... 🐾</p>
+          <div class="bubble-arrow"></div>
+        </div>
+
+        <!-- Pixel Cat SVG (Inline for 60fps CSS hardware animations) -->
+        <div class="pixel-cat-box" id="pixelCatBox" title="Погладь меня!">
+          <svg class="pixel-cat-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+            <!-- Floating Heart above head -->
+            <g class="cat-floating-heart">
+              <rect x="14" y="1" width="4" height="1" fill="#FF4D6D" />
+              <rect x="12" y="2" width="8" height="1" fill="#FF4D6D" />
+              <rect x="11" y="3" width="10" height="2" fill="#FF4D6D" />
+              <rect x="12" y="5" width="8" height="1" fill="#FF4D6D" />
+              <rect x="13" y="6" width="6" height="1" fill="#FF4D6D" />
+              <rect x="14" y="7" width="4" height="1" fill="#FF4D6D" />
+              <rect x="15" y="8" width="2" height="1" fill="#FF4D6D" />
+              <rect x="13" y="3" width="2" height="1" fill="#FFFFFF" />
+            </g>
+
+            <!-- Tail (Swishing behind) -->
+            <g class="cat-tail">
+              <rect x="23" y="19" width="3" height="2" fill="#FFA552" />
+              <rect x="25" y="17" width="3" height="3" fill="#FFA552" />
+              <rect x="26" y="14" width="3" height="4" fill="#FFA552" />
+              <rect x="25" y="12" width="3" height="3" fill="#FFF2E2" />
+              <rect x="24" y="11" width="3" height="2" fill="#FFF2E2" />
+              <rect x="23" y="19" width="1" height="2" fill="#3D2924" />
+              <rect x="28" y="14" width="1" height="4" fill="#3D2924" />
+              <rect x="26" y="11" width="2" height="1" fill="#3D2924" />
+            </g>
+
+            <!-- Body & Head Group -->
+            <g class="cat-body-head">
+              <!-- Body -->
+              <rect x="7" y="20" width="18" height="9" fill="#FFF7ED" />
+              <rect x="8" y="19" width="16" height="2" fill="#FFF7ED" />
+              <rect x="6" y="21" width="1" height="8" fill="#3D2924" />
+              <rect x="25" y="21" width="1" height="8" fill="#3D2924" />
+              <rect x="7" y="29" width="18" height="1" fill="#3D2924" />
+              
+              <!-- Ginger patch on body -->
+              <rect x="19" y="20" width="6" height="8" fill="#FFA552" />
+              <rect x="18" y="22" width="3" height="5" fill="#FFA552" />
+              <rect x="8" y="19" width="16" height="1" fill="#E6D3C1" />
+
+              <!-- Collar with golden bell -->
+              <g class="cat-collar">
+                <rect x="10" y="19" width="12" height="2" fill="#FF4D6D" />
+                <rect x="9" y="19" width="1" height="2" fill="#3D2924" />
+                <rect x="22" y="19" width="1" height="2" fill="#3D2924" />
+                <rect x="15" y="20" width="2" height="2" fill="#FFD166" />
+                <rect x="15" y="21" width="2" height="1" fill="#FFAA00" />
+              </g>
+
+              <!-- Head Base & Contour -->
+              <rect x="6" y="9" width="20" height="10" fill="#3D2924" />
+              <rect x="5" y="10" width="22" height="8" fill="#3D2924" />
+              <rect x="7" y="10" width="18" height="8" fill="#FFFDF8" />
+              <rect x="6" y="11" width="20" height="6" fill="#FFFDF8" />
+
+              <!-- Ginger Head Patch -->
+              <rect x="5" y="9" width="6" height="6" fill="#FFA552" />
+              <rect x="6" y="6" width="4" height="4" fill="#FFA552" />
+              <rect x="7" y="15" width="2" height="2" fill="#FFA552" />
+
+              <!-- Left Ear -->
+              <rect x="5" y="5" width="5" height="5" fill="#3D2924" />
+              <rect x="6" y="4" width="3" height="2" fill="#3D2924" />
+              <rect x="7" y="3" width="2" height="1" fill="#3D2924" />
+              <rect x="7" y="6" width="3" height="3" fill="#FF94A8" />
+
+              <!-- Right Ear -->
+              <rect x="22" y="5" width="5" height="5" fill="#3D2924" />
+              <rect x="23" y="4" width="3" height="2" fill="#3D2924" />
+              <rect x="23" y="3" width="2" height="1" fill="#3D2924" />
+              <rect x="22" y="6" width="3" height="3" fill="#FF94A8" />
+              <rect x="21" y="6" width="2" height="4" fill="#FFFDF8" />
+
+              <!-- Whiskers -->
+              <rect x="1" y="13" width="4" height="1" fill="#3D2924" />
+              <rect x="2" y="15" width="3" height="1" fill="#3D2924" />
+              <rect x="27" y="13" width="4" height="1" fill="#3D2924" />
+              <rect x="27" y="15" width="3" height="1" fill="#3D2924" />
+
+              <!-- Nose & Mouth -->
+              <rect x="15" y="14" width="2" height="1" fill="#FF758F" />
+              <rect x="14" y="15" width="1" height="1" fill="#3D2924" />
+              <rect x="17" y="15" width="1" height="1" fill="#3D2924" />
+              <rect x="15" y="16" width="2" height="1" fill="#3D2924" />
+
+              <!-- Blush Cheeks -->
+              <g class="cat-blush">
+                <rect x="6" y="14" width="3" height="2" fill="#FFA3B8" />
+                <rect x="23" y="14" width="3" height="2" fill="#FFA3B8" />
+              </g>
+
+              <!-- State 1: Idle Eyes (Blinking) -->
+              <g class="cat-eyes cat-eyes-idle">
+                <rect x="9" y="12" width="3" height="3" fill="#2B1E1A" />
+                <rect x="9" y="12" width="1" height="1" fill="#FFFFFF" />
+                <rect x="20" y="12" width="3" height="3" fill="#2B1E1A" />
+                <rect x="20" y="12" width="1" height="1" fill="#FFFFFF" />
+              </g>
+
+              <!-- State 2: Happy Smiling Eyes (^ ^) -->
+              <g class="cat-eyes cat-eyes-happy">
+                <rect x="8" y="13" width="1" height="2" fill="#2B1E1A" />
+                <rect x="9" y="12" width="2" height="1" fill="#2B1E1A" />
+                <rect x="11" y="13" width="1" height="2" fill="#2B1E1A" />
+                <rect x="19" y="13" width="1" height="2" fill="#2B1E1A" />
+                <rect x="20" y="12" width="2" height="1" fill="#2B1E1A" />
+                <rect x="22" y="13" width="1" height="2" fill="#2B1E1A" />
+              </g>
+
+              <!-- State 3: Pleading Shiny Eyes (Big puppy eyes) -->
+              <g class="cat-eyes cat-eyes-pleading">
+                <rect x="8" y="11" width="4" height="4" fill="#2B1E1A" />
+                <rect x="8" y="11" width="2" height="2" fill="#FFFFFF" />
+                <rect x="11" y="13" width="1" height="1" fill="#80E0FF" />
+                <rect x="19" y="11" width="4" height="4" fill="#2B1E1A" />
+                <rect x="19" y="11" width="2" height="2" fill="#FFFFFF" />
+                <rect x="22" y="13" width="1" height="1" fill="#80E0FF" />
+              </g>
+
+              <!-- Front Paws -->
+              <g class="cat-paws">
+                <rect x="9" y="24" width="4" height="4" fill="#3D2924" />
+                <rect x="10" y="25" width="2" height="3" fill="#FFFDF8" />
+                <rect x="10" y="26" width="2" height="2" fill="#FFB5C5" />
+                <rect x="18" y="24" width="4" height="4" fill="#3D2924" />
+                <rect x="19" y="25" width="2" height="3" fill="#FFFDF8" />
+                <rect x="19" y="26" width="2" height="2" fill="#FFB5C5" />
+              </g>
+            </g>
+          </svg>
+        </div>
+        <p class="cat-hint">Нажми на котика, чтобы погладить 🐾</p>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="main-title">Ты пойдёшь со мной на свидание?</h1>
+      <p class="main-subtitle">
+        Обещаю самый тёплый, уютный вечер, море улыбок и что-нибудь очень вкусное 🌸
+      </p>
+
+      <!-- Decision Buttons Area -->
+      <div class="decision-container" id="decisionContainer">
+        <!-- YES Button 1 (Main) -->
+        <button class="btn btn-yes" id="btnYes1">
+          <span class="btn-paw-icon">🐾</span>
+          <span class="btn-text">Да, с радостью!</span>
+          <span class="btn-sparkle">💖</span>
+        </button>
+
+        <!-- YES Button 2 (Enthusiastic) -->
+        <button class="btn btn-yes-sub" id="btnYes2">
+          <span class="btn-text">Конечно да! 🥰</span>
+        </button>
+
+        <!-- Playful Dodge Button (Runs away when hovered/touched) -->
+        <div class="dodge-wrapper" id="dodgeWrapper">
+          <button class="btn btn-dodge" id="btnDodge">
+            <span class="btn-text" id="dodgeText">Я ещё подумаю... 🙈</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 2: DATE PLANNER (ACTIVITY SELECTION) ================= -->
+    <section class="card date-planner-card" id="stage2" hidden>
+      <div class="card-badge success">
+        <span class="badge-sparkle">🎉</span>
+        <span class="badge-text">Ура! Она сказала ДА!</span>
+        <span class="badge-sparkle">🎉</span>
+      </div>
+
+      <h2 class="section-title">Давай спланируем наше идеальное свидание! ✨</h2>
+      <p class="section-subtitle">
+        Выбирай кошачьей лапкой всё, что тебе по душе (можно выбрать несколько пунктов):
+      </p>
+
+      <!-- Grid of Activities with the Cat Paw Component -->
+      <div class="activities-grid">
+        
+        <!-- Activity Card 1 -->
+        <label class="activity-card" for="opt-coffee">
+          <div class="activity-info">
+            <span class="activity-icon">☕🥐</span>
+            <div class="activity-text">
+              <h3 class="activity-title">Уютная кофейня</h3>
+              <p class="activity-desc">Ароматный кофе, хрустящие круассаны и душевные разговоры в красивом месте.</p>
+            </div>
+          </div>
+          
+          <!-- Cat Paw Component (Integrated based on user snippet) -->
+          <div class="paw-container" title="Выбрать">
+            <input type="checkbox" class="checkbox activity-checkbox" id="opt-coffee" value="☕ Уютная кофейня и кофе с круассанами" checked>
+            <div class="svg-container">
+              <!-- Paw Outline -->
+              <svg viewBox="0 0 24 24" class="svg-outline" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.2" cy="10.8" rx="1.8" ry="2.4" transform="rotate(-20 5.2 10.8)" />
+                <ellipse cx="9.4" cy="6.6" rx="2" ry="2.7" transform="rotate(-6 9.4 6.6)" />
+                <ellipse cx="14.6" cy="6.6" rx="2" ry="2.7" transform="rotate(6 14.6 6.6)" />
+                <ellipse cx="18.8" cy="10.8" rx="1.8" ry="2.4" transform="rotate(20 18.8 10.8)" />
+                <path d="M12 12.6 C9.8 12.6 7.4 14.2 7.1 16.5 C6.7 19.1 8.8 21.2 12 21.2 C15.2 21.2 17.3 19.1 16.9 16.5 C16.6 14.2 14.2 12.6 12 12.6 Z" />
+              </svg>
+              <!-- Paw Filled -->
+              <svg viewBox="0 0 24 24" class="svg-filled" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.2" cy="10.8" rx="1.8" ry="2.4" transform="rotate(-20 5.2 10.8)" />
+                <ellipse cx="9.4" cy="6.6" rx="2" ry="2.7" transform="rotate(-6 9.4 6.6)" />
+                <ellipse cx="14.6" cy="6.6" rx="2" ry="2.7" transform="rotate(6 14.6 6.6)" />
+                <ellipse cx="18.8" cy="10.8" rx="1.8" ry="2.4" transform="rotate(20 18.8 10.8)" />
+                <path d="M12 12.6 C9.8 12.6 7.4 14.2 7.1 16.5 C6.7 19.1 8.8 21.2 12 21.2 C15.2 21.2 17.3 19.1 16.9 16.5 C16.6 14.2 14.2 12.6 12 12.6 Z" />
+              </svg>
+              <!-- Celebration Sparkles -->
+              <svg class="svg-celebrate" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="10,10 20,20"></polygon>
+                <polygon points="10,50 20,50"></polygon>
+                <polygon points="20,80 30,70"></polygon>
+                <polygon points="90,10 80,20"></polygon>
+                <polygon points="90,50 80,50"></polygon>
+                <polygon points="80,80 70,70"></polygon>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <!-- Activity Card 2 -->
+        <label class="activity-card" for="opt-cinema">
+          <div class="activity-info">
+            <span class="activity-icon">🎬🍿</span>
+            <div class="activity-text">
+              <h3 class="activity-title">Киновечер</h3>
+              <p class="activity-desc">Большой экран, гора попкорна и любимый фильм под тёплым пледом.</p>
+            </div>
+          </div>
+          
+          <div class="paw-container" title="Выбрать">
+            <input type="checkbox" class="checkbox activity-checkbox" id="opt-cinema" value="🎬 Киновечер с попкорном и любимым фильмом">
+            <div class="svg-container">
+              <svg viewBox="0 0 24 24" class="svg-outline" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.2" cy="10.8" rx="1.8" ry="2.4" transform="rotate(-20 5.2 10.8)" />
+                <ellipse cx="9.4" cy="6.6" rx="2" ry="2.7" transform="rotate(-6 9.4 6.6)" />
+                <ellipse cx="14.6" cy="6.6" rx="2" ry="2.7" transform="rotate(6 14.6 6.6)" />
+                <ellipse cx="18.8" cy="10.8" rx="1.8" ry="2.4" transform="rotate(20 18.8 10.8)" />
+                <path d="M12 12.6 C9.8 12.6 7.4 14.2 7.1 16.5 C6.7 19.1 8.8 21.2 12 21.2 C15.2 21.2 17.3 19.1 16.9 16.5 C16.6 14.2 14.2 12.6 12 12.6 Z" />
+              </svg>
+              <svg viewBox="0 0 24 24" class="svg-filled" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.2" cy="10.8" rx="1.8" ry="2.4" transform="rotate(-20 5.2 10.8)" />
+                <ellipse cx="9.4" cy="6.6" rx="2" ry="2.7" transform="rotate(-6 9.4 6.6)" />
+                <ellipse cx="14.6" cy="6.6" rx="2" ry="2.7" transform="rotate(6 14.6 6.6)" />
+                <ellipse cx="18.8" cy="10.8" rx="1.8" ry="2.4" transform="rotate(20 18.8 10.8)" />
+                <path d="M12 12.6 C9.8 12.6 7.4 14.2 7.1 16.5 C6.7 19.1 8.8 21.2 12 21.2 C15.2 21.2 17.3 19.1 16.9 16.5 C16.6 14.2 14.2 12.6 12 12.6 Z" />
+              </svg>
+              <svg class="svg-celebrate" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="10,10 20,20"></polygon>
+                <polygon points="10,50 20,50"></polygon>
+                <polygon points="20,80 30,70"></polygon>
+                <polygon points="90,10 80,20"></polygon>
+                <polygon points="90,50 80,50"></polygon>
+                <polygon points="80,80 70,70"></polygon>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <!-- Activity Card 3 -->
+        <label class="activity-card" for="opt-walk">
+          <div class="activity-info">
+            <span class="activity-icon">🌆✨</span>
+            <div class="activity-text">
+              <h3 class="activity-title">Романтичная прогулка</h3>
+              <p class="activity-desc">Огни вечернего города, отражения фонарей и неспешная прогулка за руку.</p>
+            </div>
+          </div>
+          
+          <div class="paw-container" title="Выбрать">
+            <input type="checkbox" class="checkbox activity-checkbox" id="opt-walk" value="🌆 Романтичная вечерняя прогулка за руку" checked>
+            <div class="svg-container">
+              <svg viewBox="0 0 24 24" class="svg-outline" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.2" cy="10.8" rx="1.8" ry="2.4" transform="rotate(-20 5.2 10.8)" />
+                <ellipse cx="9.4" cy="6.6" rx="2" ry="2.7" transform="rotate(-6 9.4 6.6)" />
+                <ellipse cx="14.6" cy="6.6" rx="2" ry="2.7" transform="rotate(6 14.6 6.6)" />
+                <ellipse cx="18.8" cy="10.8" rx="1.8" ry="2.4" transform="rotate(20 18.8 10.8)" />
+                <path d="M12 12.6 C9.8 12.6 7.4 14.2 7.1 16.5 C6.7 19.1 8.8 21.2 12 21.2 C15.2 21.2 17.3 19.1 16.9 16.5 C16.6 14.2 14.2 12.6 12 12.6 Z" />
+              </svg>
+              <svg viewBox="0 0 24 24" class="svg-filled" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.2" cy="10.8" rx="1.8" ry="2.4" transform="rotate(-20 5.2 10.8)" />
+                <ellipse cx="9.4" cy="6.6" rx="2" ry="2.7" transform="rotate(-6 9.4 6.6)" />
+                <ellipse cx="14.6" cy="6.6" rx="2" ry="2.7" transform="rotate(6 14.6 6.6)" />
+                <ellipse cx="18.8" cy="10.8" rx="1.8" ry="2.4" transform="rotate(20 18.8 10.8)" />
+                <path d="M12 12.6 C9.8 12.6 7.4 14.2 7.1 16.5 C6.7 19.1 8.8 21.2 12 21.2 C15.2 21.2 17.3 19.1 16.9 16.5 C16.6 14.2 14.2 12.6 12 12.6 Z" />
+              </svg>
+              <svg class="svg-celebrate" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="10,10 20,20"></polygon>
+                <polygon points="10,50 20,50"></polygon>
+                <polygon points="20,80 30,70"></polygon>
+                <polygon points="90,10 80,20"></polygon>
+                <polygon points="90,50 80,50"></polygon>
+                <polygon points="80,80 70,70"></polygon>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <!-- Activity Card 4 -->
+        <label class="activity-card" for="opt-dinner">
+          <div class="activity-info">
+            <span class="activity-icon">🍕🍝</span>
+            <div class="activity-text">
+              <h3 class="activity-title">Вкусный ужин</h3>
+              <p class="activity-desc">Нежная паста, хрустящая пицца или твои любимые суши в атмосферном ресторане.</p>
+            </div>
+          </div>
+          
+          <div class="paw-container" title="Выбрать">
+            <input type="checkbox" class="checkbox activity-checkbox" id="opt-dinner" value="🍕 Вкусный романтический ужин">
+            <div class="svg-container">
+              <svg viewBox="0 0 24 24" class="svg-outline" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.2" cy="10.8" rx="1.8" ry="2.4" transform="rotate(-20 5.2 10.8)" />
+                <ellipse cx="9.4" cy="6.6" rx="2" ry="2.7" transform="rotate(-6 9.4 6.6)" />
+                <ellipse cx="14.6" cy="6.6" rx="2" ry="2.7" transform="rotate(6 14.6 6.6)" />
+                <ellipse cx="18.8" cy="10.8" rx="1.8" ry="2.4" transform="rotate(20 18.8 10.8)" />
+                <path d="M12 12.6 C9.8 12.6 7.4 14.2 7.1 16.5 C6.7 19.1 8.8 21.2 12 21.2 C15.2 21.2 17.3 19.1 16.9 16.5 C16.6 14.2 14.2 12.6 12 12.6 Z" />
+              </svg>
+              <svg viewBox="0 0 24 24" class="svg-filled" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.2" cy="10.8" rx="1.8" ry="2.4" transform="rotate(-20 5.2 10.8)" />
+                <ellipse cx="9.4" cy="6.6" rx="2" ry="2.7" transform="rotate(-6 9.4 6.6)" />
+                <ellipse cx="14.6" cy="6.6" rx="2" ry="2.7" transform="rotate(6 14.6 6.6)" />
+                <ellipse cx="18.8" cy="10.8" rx="1.8" ry="2.4" transform="rotate(20 18.8 10.8)" />
+                <path d="M12 12.6 C9.8 12.6 7.4 14.2 7.1 16.5 C6.7 19.1 8.8 21.2 12 21.2 C15.2 21.2 17.3 19.1 16.9 16.5 C16.6 14.2 14.2 12.6 12 12.6 Z" />
+              </svg>
+              <svg class="svg-celebrate" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="10,10 20,20"></polygon>
+                <polygon points="10,50 20,50"></polygon>
+                <polygon points="20,80 30,70"></polygon>
+                <polygon points="90,10 80,20"></polygon>
+                <polygon points="90,50 80,50"></polygon>
+                <polygon points="80,80 70,70"></polygon>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <!-- Activity Card 5 -->
+        <label class="activity-card" for="opt-stars">
+          <div class="activity-info">
+            <span class="activity-icon">🌌🔭</span>
+            <div class="activity-text">
+              <h3 class="activity-title">Панорамный вид и звёзды</h3>
+              <p class="activity-desc">Смотреть на ночной город с высоты птичьего полета под хорошую музыку.</p>
+            </div>
+          </div>
+          
+          <div class="paw-container" title="Выбрать">
+            <input type="checkbox" class="checkbox activity-checkbox" id="opt-stars" value="🌌 Панорамный вид на ночной город">
+            <div class="svg-container">
+              <svg viewBox="0 0 24 24" class="svg-outline" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.2" cy="10.8" rx="1.8" ry="2.4" transform="rotate(-20 5.2 10.8)" />
+                <ellipse cx="9.4" cy="6.6" rx="2" ry="2.7" transform="rotate(-6 9.4 6.6)" />
+                <ellipse cx="14.6" cy="6.6" rx="2" ry="2.7" transform="rotate(6 14.6 6.6)" />
+                <ellipse cx="18.8" cy="10.8" rx="1.8" ry="2.4" transform="rotate(20 18.8 10.8)" />
+                <path d="M12 12.6 C9.8 12.6 7.4 14.2 7.1 16.5 C6.7 19.1 8.8 21.2 12 21.2 C15.2 21.2 17.3 19.1 16.9 16.5 C16.6 14.2 14.2 12.6 12 12.6 Z" />
+              </svg>
+              <svg viewBox="0 0 24 24" class="svg-filled" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.2" cy="10.8" rx="1.8" ry="2.4" transform="rotate(-20 5.2 10.8)" />
+                <ellipse cx="9.4" cy="6.6" rx="2" ry="2.7" transform="rotate(-6 9.4 6.6)" />
+                <ellipse cx="14.6" cy="6.6" rx="2" ry="2.7" transform="rotate(6 14.6 6.6)" />
+                <ellipse cx="18.8" cy="10.8" rx="1.8" ry="2.4" transform="rotate(20 18.8 10.8)" />
+                <path d="M12 12.6 C9.8 12.6 7.4 14.2 7.1 16.5 C6.7 19.1 8.8 21.2 12 21.2 C15.2 21.2 17.3 19.1 16.9 16.5 C16.6 14.2 14.2 12.6 12 12.6 Z" />
+              </svg>
+              <svg class="svg-celebrate" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="10,10 20,20"></polygon>
+                <polygon points="10,50 20,50"></polygon>
+                <polygon points="20,80 30,70"></polygon>
+                <polygon points="90,10 80,20"></polygon>
+                <polygon points="90,50 80,50"></polygon>
+                <polygon points="80,80 70,70"></polygon>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <!-- Activity Card 6 -->
+        <label class="activity-card" for="opt-surprise">
+          <div class="activity-info">
+            <span class="activity-icon">🎁🎀</span>
+            <div class="activity-text">
+              <h3 class="activity-title">Секретный сюрприз</h3>
+              <p class="activity-desc">Полная тайна! Доверься мне, я сам всё подготовлю до мельчайших деталей.</p>
+            </div>
+          </div>
+          
+          <div class="paw-container" title="Выбрать">
+            <input type="checkbox" class="checkbox activity-checkbox" id="opt-surprise" value="🎁 Секретный сюрприз от тебя">
+            <div class="svg-container">
+              <svg viewBox="0 0 24 24" class="svg-outline" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.2" cy="10.8" rx="1.8" ry="2.4" transform="rotate(-20 5.2 10.8)" />
+                <ellipse cx="9.4" cy="6.6" rx="2" ry="2.7" transform="rotate(-6 9.4 6.6)" />
+                <ellipse cx="14.6" cy="6.6" rx="2" ry="2.7" transform="rotate(6 14.6 6.6)" />
+                <ellipse cx="18.8" cy="10.8" rx="1.8" ry="2.4" transform="rotate(20 18.8 10.8)" />
+                <path d="M12 12.6 C9.8 12.6 7.4 14.2 7.1 16.5 C6.7 19.1 8.8 21.2 12 21.2 C15.2 21.2 17.3 19.1 16.9 16.5 C16.6 14.2 14.2 12.6 12 12.6 Z" />
+              </svg>
+              <svg viewBox="0 0 24 24" class="svg-filled" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.2" cy="10.8" rx="1.8" ry="2.4" transform="rotate(-20 5.2 10.8)" />
+                <ellipse cx="9.4" cy="6.6" rx="2" ry="2.7" transform="rotate(-6 9.4 6.6)" />
+                <ellipse cx="14.6" cy="6.6" rx="2" ry="2.7" transform="rotate(6 14.6 6.6)" />
+                <ellipse cx="18.8" cy="10.8" rx="1.8" ry="2.4" transform="rotate(20 18.8 10.8)" />
+                <path d="M12 12.6 C9.8 12.6 7.4 14.2 7.1 16.5 C6.7 19.1 8.8 21.2 12 21.2 C15.2 21.2 17.3 19.1 16.9 16.5 C16.6 14.2 14.2 12.6 12 12.6 Z" />
+              </svg>
+              <svg class="svg-celebrate" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="10,10 20,20"></polygon>
+                <polygon points="10,50 20,50"></polygon>
+                <polygon points="20,80 30,70"></polygon>
+                <polygon points="90,10 80,20"></polygon>
+                <polygon points="90,50 80,50"></polygon>
+                <polygon points="80,80 70,70"></polygon>
+              </svg>
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <!-- Additional Planning Preferences -->
+      <div class="planner-options">
+        <div class="option-group">
+          <label class="group-label">🗓 В какой день тебе удобнее всего?</label>
+          <div class="pill-buttons" id="daySelector">
+            <button type="button" class="pill-btn active" data-day="В эту пятницу вечером ✨">Пятница вечер ✨</button>
+            <button type="button" class="pill-btn" data-day="В субботу 🌸">В субботу 🌸</button>
+            <button type="button" class="pill-btn" data-day="В воскресенье 🌅">В воскресенье 🌅</button>
+            <button type="button" class="pill-btn" data-day="Напишу лично в чате 💌">Напишу в чат 💌</button>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <label class="group-label" for="customWish">🧁 Твоё сладкое пожелание (любимый кофе, десерт или фильм):</label>
+          <input type="text" id="customWish" class="custom-input" placeholder="Например: Люблю матча латте или фисташковое мороженое..." maxlength="120">
+        </div>
+      </div>
+
+      <!-- Generate Ticket Button -->
+      <div class="submit-action">
+        <button class="btn btn-confirm" id="btnConfirmDate">
+          <span class="btn-text">Получить наш билет на свидание 🎟️</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 3: THE GOLDEN VIP TICKET ================= -->
+    <section class="card ticket-card" id="stage3" hidden>
+      <div class="ticket-header">
+        <div class="ticket-badge">VIP INVITATION</div>
+        <div class="ticket-serial" id="ticketSerial">№ LOVE-2026-🐾</div>
+      </div>
+
+      <div class="ticket-content">
+        <div class="ticket-stamp">СОГЛАСОВАНО 💖</div>
+        <h2 class="ticket-title">Билет на идеальное свидание</h2>
+        <p class="ticket-subtitle">Действителен для самой очаровательной девушки</p>
+
+        <div class="ticket-divider">
+          <span class="notch left"></span>
+          <span class="dashed-line"></span>
+          <span class="notch right"></span>
+        </div>
+
+        <div class="ticket-details">
+          <div class="detail-row">
+            <span class="detail-label">🐾 Выбранная программа:</span>
+            <ul class="activities-summary" id="summaryActivities">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+
+          <div class="detail-row">
+            <span class="detail-label">🗓 Удобное время:</span>
+            <span class="detail-value" id="summaryDay">В эту пятницу вечером ✨</span>
+          </div>
+
+          <div class="detail-row" id="summaryWishRow">
+            <span class="detail-label">🧁 Пожелание:</span>
+            <span class="detail-value" id="summaryWish">-</span>
+          </div>
+        </div>
+
+        <div class="ticket-footer-note">
+          <p>Вход строго с хорошим настроением и готовностью улыбаться! 😻</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons to Send Response -->
+      <div class="ticket-actions">
+        <a href="#" target="_blank" class="btn btn-telegram" id="btnTelegram">
+          <span class="btn-icon">💌</span>
+          <span class="btn-text">Отправить ответ в Telegram</span>
+        </a>
+        <a href="#" target="_blank" class="btn btn-whatsapp" id="btnWhatsapp">
+          <span class="btn-icon">💬</span>
+          <span class="btn-text">Отправить в WhatsApp</span>
+        </a>
+        <button type="button" class="btn btn-copy" id="btnCopy">
+          <span class="btn-icon">📋</span>
+          <span class="btn-text">Скопировать текст ответа</span>
+        </button>
+        <button type="button" class="btn btn-reset" id="btnReset">
+          <span class="btn-text">🔄 Изменить выбор</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- Toast Notification -->
+  <div class="toast-notification" id="toastNotification" role="alert">
+    <span class="toast-icon">🐾</span>
+    <span class="toast-message" id="toastMessage">Скопировано!</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
