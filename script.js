@@ -7,7 +7,7 @@
 // --- CONFIGURATION ---
 // Укажи здесь свой Email, и все ответы автоматически будут прилетать прямо в твой почтовый ящик!
 const CONFIG = {
-  receiverEmail: 'YOUR_EMAIL@EXAMPLE.COM', // <-- Замени на свой email (например: alex@gmail.com)
+  receiverEmail: 'dimasgas342@gmail.com',
   useFormSubmit: true
 };
 
