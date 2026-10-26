@@ -4,6 +4,13 @@
  * ============================================================================
  */
 
+// --- CONFIGURATION ---
+// Укажи здесь свой Email, и все ответы автоматически будут прилетать прямо в твой почтовый ящик!
+const CONFIG = {
+  receiverEmail: 'YOUR_EMAIL@EXAMPLE.COM', // <-- Замени на свой email (например: alex@gmail.com)
+  useFormSubmit: true
+};
+
 (function () {
   'use strict';
 
@@ -476,7 +483,70 @@
       // Switch to Ticket
       switchStage(stage2, stage3);
       setCatState('celebrate', 'Ура! Наше идеальное свидание утверждено! 🎟️💖');
+
+      // Automatically send notification to Email
+      sendEmailNotification({
+        activities: chosenActivities,
+        day: selectedDay,
+        wish: customWish,
+        serial: ticketSerial.textContent
+      });
     });
+  }
+
+  // --- Auto-Send Notification to User's Email (FormSubmit) ---
+  async function sendEmailNotification(data) {
+    if (!CONFIG.receiverEmail || CONFIG.receiverEmail.includes('YOUR_EMAIL')) {
+      console.warn('Email receiver not configured in CONFIG.receiverEmail. Please specify your email in script.js');
+      return;
+    }
+
+    const emailBanner = document.getElementById('emailStatusBanner');
+    if (emailBanner) {
+      emailBanner.style.display = 'inline-block';
+      emailBanner.classList.remove('success');
+      emailBanner.textContent = '💌 Отправка кошачьей почты с ответом...';
+    }
+
+    try {
+      const payload = {
+        _subject: `💖 Она сказала ДА! Ответ на свидание [${data.serial}]`,
+        _captcha: 'false',
+        _template: 'box',
+        '🐾 Ответ': 'Да, я с радостью иду на свидание! 🥰',
+        '✨ Выбранные планы': data.activities.join('; '),
+        '🗓 Удобное время': data.day,
+        '🧁 Сладкое пожелание': data.wish || 'Без особых пожеланий',
+        '🎟 Номер билета': data.serial,
+        '⏰ Дата ответа': new Date().toLocaleString('ru-RU')
+      };
+
+      const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(CONFIG.receiverEmail.trim())}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        if (emailBanner) {
+          emailBanner.textContent = '✨ Ответ автоматически отправлен тебе на почту!';
+          emailBanner.classList.add('success');
+        }
+        showToast('Ответ отправлен на почту! 💌');
+      } else {
+        if (emailBanner) {
+          emailBanner.style.display = 'none';
+        }
+      }
+    } catch (err) {
+      console.error('Email send failed:', err);
+      if (emailBanner) {
+        emailBanner.style.display = 'none';
+      }
+    }
   }
 
   // Reset Button
